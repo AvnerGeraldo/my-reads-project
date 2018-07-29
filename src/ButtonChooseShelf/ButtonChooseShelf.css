@@ -1,0 +1,16 @@
+/*Choose Bookshelf*/
+.choose-bookshelf a {
+    text-align: center;
+    padding: 10px 5px;
+    text-decoration: none;
+    color: #2e7c31;
+  }
+  
+  .choose-bookshelf a svg {
+    font-size: 62px;
+  }
+  
+  .choose-bookshelf a:hover, .choose-bookshelf a.active {
+    text-decoration: underline;
+    color: #007bff;
+  }
