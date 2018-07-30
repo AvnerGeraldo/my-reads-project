@@ -6,14 +6,20 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 //Components
 import ButtonChooseShelf from './ButtonChooseShelf/ButtonChooseShelf'
+import { faFilter } from '../node_modules/@fortawesome/free-solid-svg-icons';
 
 class BooksApp extends React.Component {
   state = {
+    bookData: [],
     shelfActive: 'Currently Reading'
   }
 
   componentDidMount() {
-    BooksAPI.getAll().then((data) => console.log(data))
+    BooksAPI.getAll().then((bookData) => this.setState({ bookData }))
+  }
+
+  changeShelfHandler = (shelf) => {
+    this.setState({ shelfActive: shelf })
   }
 
   render() {
@@ -30,8 +36,13 @@ class BooksApp extends React.Component {
           <div className="col-8 offset-2">
             <div className="row">
               {listBookShelf.map(shelf => (
-                <div key={shelf} className="col-4">
-                  <ButtonChooseShelf bookshelf={shelf} active={shelf === state.shelfActive}/>
+                <div 
+                  key={shelf} 
+                  className="col-4">
+                    <ButtonChooseShelf 
+                      bookshelf={shelf}
+                      changeShelf={this.changeShelfHandler}
+                      active={shelf === this.state.shelfActive}/>
                 </div>
               ))}
             </div>          
