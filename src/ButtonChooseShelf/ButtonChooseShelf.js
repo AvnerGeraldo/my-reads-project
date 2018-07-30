@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 //Assets
 import './ButtonChooseShelf.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBookOpen, faBook, faGlasses } from '@fortawesome/free-solid-svg-icons'
+import { faBookOpen, faBook, faGlasses, faAtlas } from '@fortawesome/free-solid-svg-icons'
 
 const ButtonChooseShelf = ({ bookshelf, active, changeShelf }) => {
     const objBookShelt = [{
@@ -19,6 +19,10 @@ const ButtonChooseShelf = ({ bookshelf, active, changeShelf }) => {
     {
         title: 'Read',
         icon: faGlasses
+    },
+    {
+        title: 'All',
+        icon: faAtlas
     }]
 
     const shelfObj = objBookShelt.filter((item) => item.title === bookshelf)

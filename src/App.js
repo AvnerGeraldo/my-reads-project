@@ -1,11 +1,14 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
- import * as BooksAPI from './BooksAPI'
-import './App.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import * as BooksAPI from './BooksAPI'
 
 //Components
 import ButtonChooseShelf from './ButtonChooseShelf/ButtonChooseShelf'
+import Shelf from './Shelf/Shelf'
+
+//Assets
+import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import { faFilter } from '../node_modules/@fortawesome/free-solid-svg-icons';
 
 class BooksApp extends React.Component {
@@ -24,7 +27,7 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    const listBookShelf = ['Currently Reading', 'Want to Read', 'Read']
+    const listBookShelf = ['Currently Reading', 'Want to Read', 'Read', 'All']
 
     return (
       <div className="container-fluid">         
@@ -34,12 +37,12 @@ class BooksApp extends React.Component {
           </div>
         </div>
         <div className="row choose-bookshelf">
-          <div className="col-8 offset-2">
+          <div className="col-10 offset-1">
             <div className="row">
               {listBookShelf.map(shelf => (
                 <div 
                   key={shelf} 
-                  className="col-4">
+                  className="col-3">
                     <ButtonChooseShelf 
                       bookshelf={shelf}
                       changeShelf={this.changeShelfHandler}
@@ -54,19 +57,9 @@ class BooksApp extends React.Component {
             <Route 
               path='/' 
               exact
-              render={() => 'Current Reading'} />        
-          
-            <Route
-              path='/current-reading'
-              render={() => 'Current Reading'} />
-
-            <Route
-              path='/want-to-read'
-              render={() => 'Want to Read'} />
-
-            <Route
-              path='/read'
-              render={() => 'Read'} />
+              render={() => (
+                <Shelf data={this.state.bookData} chooseShelf={this.state.shelfActive} />
+              )} />
           </div>
         </div>        
       </div>
