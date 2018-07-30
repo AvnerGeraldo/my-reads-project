@@ -10,25 +10,22 @@ import { faBookOpen, faBook, faGlasses } from '@fortawesome/free-solid-svg-icons
 const ButtonChooseShelf = ({ bookshelf, active, changeShelf }) => {
     const objBookShelt = [{
         title: 'Currently Reading',
-        route: '/current-reading',
         icon: faBookOpen
     },
     {
         title: 'Want to Read',
-        route: '/want-to-read',
         icon: faBook
     },
     {
         title: 'Read',
-        route: '/read',
         icon: faGlasses
     }]
 
     const shelfObj = objBookShelt.filter((item) => item.title === bookshelf)
     
     return (
-        <Link 
-            to={shelfObj[0].route}
+        <Link
+            to='/'
             onClick={() => changeShelf(shelfObj[0].title)}
             className={active ? 'active' : null}>
             <FontAwesomeIcon 

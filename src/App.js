@@ -19,6 +19,7 @@ class BooksApp extends React.Component {
   }
 
   changeShelfHandler = (shelf) => {
+    console.log(shelf)
     this.setState({ shelfActive: shelf })
   }
 
