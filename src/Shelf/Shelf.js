@@ -1,7 +1,10 @@
 import React from 'react'
 import propTypes from 'prop-types'
 
-const Shelf = ({ data, chooseShelf }) => {
+//Components
+import ItemShelf from './ItemShelf'
+
+const Shelf = ({ data, chooseShelf, changeBookShelf }) => {
     let shelf;
 
     switch (chooseShelf) {
@@ -25,8 +28,24 @@ const Shelf = ({ data, chooseShelf }) => {
 
         return book.shelf === shelf
     })
-    console.log(listShelfData);
-    return ''
+    
+    return (
+        <div className="row" style={{ padding: "0 10px"}}>
+            {listShelfData.map((item, index) => ( 
+                <ItemShelf 
+                    key={index} 
+                    bookData={item} 
+                    changeBookShelf={changeBookShelf}/> 
+            ))}
+        </div>
+    )
+}
+
+const { func, string, array } = propTypes
+Shelf.propTypes = {
+    data: array.isRequired,
+    chooseShelf: string.isRequired,
+    changeBookShelf: func.isRequired
 }
 
 export default Shelf

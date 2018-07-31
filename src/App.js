@@ -25,6 +25,10 @@ class BooksApp extends React.Component {
     this.setState({ shelfActive: shelf })
   }
 
+  changeBookShelfHandler = (book, shelf) => {
+    console.log(book, shelf)
+  }
+
   render() {
     const listBookShelf = ['Currently Reading', 'Want to Read', 'Read', 'All']
 
@@ -51,16 +55,15 @@ class BooksApp extends React.Component {
             </div>          
           </div>
         </div>
-        <div className="row">
-          <div className="col">
-            <Route 
-              path='/' 
-              exact
-              render={() => (
-                <Shelf data={this.state.bookData} chooseShelf={this.state.shelfActive} />
-              )} />
-          </div>
-        </div>        
+        <Route 
+          path='/' 
+          exact
+          render={() => (
+            <Shelf 
+              data={this.state.bookData} 
+              chooseShelf={this.state.shelfActive}
+              changeBookShelf={this.changeBookShelfHandler} />
+          )} />      
       </div>
     )
   }
