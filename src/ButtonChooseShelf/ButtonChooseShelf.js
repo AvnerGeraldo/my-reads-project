@@ -25,17 +25,17 @@ const ButtonChooseShelf = ({ bookshelf, active, changeShelf }) => {
         icon: faAtlas
     }]
 
-    const shelfObj = objBookShelt.filter((item) => item.title === bookshelf)
+    const shelfObj = (objBookShelt.filter((item) => item.title === bookshelf))[0]
     
     return (
         <Link
             to='/'
-            onClick={() => changeShelf(shelfObj[0].title)}
+            onClick={() => changeShelf(shelfObj.title)}
             className={active ? 'active' : null}>
             <FontAwesomeIcon 
-                icon={shelfObj[0].icon} 
+                icon={shelfObj.icon} 
                 className="mx-auto d-block" />
-            <div className=''>{shelfObj[0].title}</div>
+            <div className=''>{shelfObj.title}</div>
         </Link>
     )
 }

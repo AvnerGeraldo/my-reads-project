@@ -14,7 +14,7 @@ import { faFilter } from '../node_modules/@fortawesome/free-solid-svg-icons';
 class BooksApp extends React.Component {
   state = {
     bookData: [],
-    shelfActive: 'Currently Reading'
+    shelfActive: 'All'
   }
 
   componentDidMount() {
@@ -22,7 +22,6 @@ class BooksApp extends React.Component {
   }
 
   changeShelfHandler = (shelf) => {
-    console.log(shelf)
     this.setState({ shelfActive: shelf })
   }
 
