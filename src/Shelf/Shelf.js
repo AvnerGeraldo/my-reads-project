@@ -28,10 +28,19 @@ const Shelf = ({ data, chooseShelf, changeBookShelf }) => {
 
         return book.shelf === shelf
     })
+
+    const styleRow = {
+        padding: "0px 10px",
+        minWidth: "675px",
+        margin: "0 auto",
+        maxWidth: "800px"
+    }
     
     return (
-        <div className="row" style={{ padding: "0 10px"}}>
-            {listShelfData.map((item, index) => ( 
+        <div className="row" style={styleRow}>
+            {(listShelfData.length === 0) ? 
+            (<div className="no-results">Não há dados para serem exibidos!</div>) :
+                listShelfData.map((item, index) => ( 
                 <ItemShelf 
                     key={index} 
                     bookData={item} 

@@ -1,5 +1,6 @@
 html, body, .root {
   height: 100%;
+  min-width: 675px;
 }
 body {
   line-height: 1.5;
@@ -85,4 +86,12 @@ body, .app {
 
 .search-books-results {
   padding: 80px 10px 20px;
+}
+
+.no-results {
+  font-size: 18px;
+  color: red;
+  width: 100%;
+  text-align: center;
+  margin: 10em 0;
 }

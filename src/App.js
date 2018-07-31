@@ -18,7 +18,7 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount() {
-    BooksAPI.getAll().then((bookData) => this.setState({ bookData }))
+    this.searchAllBooks()
   }
 
   changeShelfHandler = (shelf) => {
@@ -26,8 +26,17 @@ class BooksApp extends React.Component {
   }
 
   changeBookShelfHandler = (book, shelf) => {
-    console.log(book, shelf)
+    BooksAPI.update(book, shelf).then(res => {
+      if (!res) {
+        alert('Não foi possível atualizar livro.')
+        return false;
+      }
+
+      this.searchAllBooks()
+    })
   }
+
+  searchAllBooks = () => BooksAPI.getAll().then((bookData) => this.setState({ bookData }))
 
   render() {
     const listBookShelf = ['Currently Reading', 'Want to Read', 'Read', 'All']
