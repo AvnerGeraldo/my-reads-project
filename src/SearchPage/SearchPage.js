@@ -26,11 +26,28 @@ class SearchPage extends Component {
             this.props.searchBookOnApi(e.target.value).then(data => {            
                 //Verificar se existe erro ao buscar dados
                 if (data !== undefined && data.error === undefined) {
-                    this.setState({ bookDataSearch: data })
+                    //Remover livros que já existem na estante
+                    const removeDuplicate = data.filter(book => {
+                        let foundBook = this.props.bookDataOnShelf.filter(bookOnShelf => bookOnShelf.title === book.title)
+
+                        if (foundBook.length === 0) return book
+
+                        return null
+                    })
+
+                    this.setState({ bookDataSearch: removeDuplicate })
                 }
             })
         }
     }
+
+    addShelfToBook = (book, shelf) => {
+        const newBookDataSearch = this.state.bookDataSearch.filter(b => b.title !== book.title)
+
+        this.setState({ bookDataSearch: newBookDataSearch })
+        this.props.changeBookShelfHandler(book, shelf)
+    }
+
     render() {        
         return (
             <div className="search-books">
@@ -44,17 +61,18 @@ class SearchPage extends Component {
                     <Shelf 
                         data={this.state.bookDataSearch} 
                         chooseShelf={null}
-                        changeBookShelf={(book, shelf) => this.props.changeBookShelfHandler(book, shelf)} />
+                        changeBookShelf={this.addShelfToBook} />
                 </div>
             </div>
         )
     }
 }
 
-const { func } = PropTypes
+const { func, array } = PropTypes
 SearchPage.propTypes = {
     searchBookOnApi: func.isRequired,
-    changeBookShelfHandler: func.isRequired
+    changeBookShelfHandler: func.isRequired,
+    bookDataOnShelf: array
 }
 
 export default SearchPage

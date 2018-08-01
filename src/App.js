@@ -83,6 +83,7 @@ class BooksApp extends React.Component {
             render = {() => (
               <SearchPage 
                 searchBookOnApi={(query) => BooksAPI.search(query)}
+                bookDataOnShelf={this.state.bookData}
                 changeBookShelfHandler={this.changeBookShelfHandler} />
             )} />   
       </div>
