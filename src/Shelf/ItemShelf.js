@@ -1,17 +1,22 @@
 import React from 'react'
-import propTypes from 'prop-types'
+import PropTypes from 'prop-types'
 
 //Assets
 import './ItemShelf.css'
 
 const ItemShelf = ({ bookData, changeBookShelf }) => {
+    //Vars
+    const bookTitle = bookData.title !== undefined ? bookData.title : ''
+    const backgroundImage = bookData.imageLinks !== undefined && bookData.imageLinks.thumbnail !== undefined ? `url(${bookData.imageLinks.thumbnail}}` : null
+    const valueSelected = (bookData.shelf === null || bookData.shelf === undefined ? 'none' : bookData.shelf)
+    const listAuthors = bookData.authors !== undefined ? bookData.authors : []
+
+    //Style
     const styleBookCover = {
-        backgroundImage: `url(${bookData.imageLinks.thumbnail}}`,
+        backgroundImage,
         width: 128,
         height: 193
-    }
-
-    const valueSelected = (bookData.shelf === null ? 'none' : bookData.shelf)
+    }    
 
     return (
         <div className="book">
@@ -27,13 +32,13 @@ const ItemShelf = ({ bookData, changeBookShelf }) => {
                     </select>
                 </div>
             </div>
-            <div className="book-title">{bookData.title}</div>
-            <div className="book-authors">{bookData.authors.join(' , ')}</div>
+            <div className="book-title">{bookTitle}</div>
+            <div className="book-authors">{listAuthors.join(' , ')}</div>
         </div>
     )
 }
 
-const { object, func } = propTypes
+const { object, func } = PropTypes
 ItemShelf.propTypes = {
     bookData: object.isRequired,
     changeBookShelf: func.isRequired

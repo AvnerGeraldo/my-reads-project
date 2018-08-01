@@ -1,5 +1,5 @@
 import React from 'react'
-import propTypes from 'prop-types'
+import PropTypes from 'prop-types'
 
 //Components
 import ItemShelf from './ItemShelf'
@@ -20,7 +20,7 @@ const Shelf = ({ data, chooseShelf, changeBookShelf }) => {
         default:
             shelf = null
     }
-
+    
     const listShelfData = data.filter((book) => {
         if (shelf === null) {
             return book
@@ -40,20 +40,20 @@ const Shelf = ({ data, chooseShelf, changeBookShelf }) => {
         <div className="row" style={styleRow}>
             {(listShelfData.length === 0) ? 
             (<div className="no-results">Não há dados para serem exibidos!</div>) :
-                listShelfData.map((item, index) => ( 
-                <ItemShelf 
-                    key={index} 
-                    bookData={item} 
-                    changeBookShelf={changeBookShelf}/> 
+                listShelfData.map((item, index) => (
+                    <ItemShelf 
+                        key={index} 
+                        bookData={item} 
+                        changeBookShelf={changeBookShelf}/>
             ))}
         </div>
     )
 }
 
-const { func, string, array } = propTypes
+const { func, string, array } = PropTypes
 Shelf.propTypes = {
     data: array.isRequired,
-    chooseShelf: string.isRequired,
+    chooseShelf: string,
     changeBookShelf: func.isRequired
 }
 

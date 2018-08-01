@@ -10,7 +10,6 @@ import SearchPage from './SearchPage/SearchPage'
 //Assets
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { faFilter } from '../node_modules/@fortawesome/free-solid-svg-icons';
 
 class BooksApp extends React.Component {
   state = {
@@ -82,7 +81,9 @@ class BooksApp extends React.Component {
           <Route
             path = '/search'
             render = {() => (
-              <SearchPage />
+              <SearchPage 
+                searchBookOnApi={(query) => BooksAPI.search(query)}
+                changeBookShelfHandler={this.changeBookShelfHandler} />
             )} />   
       </div>
     )
