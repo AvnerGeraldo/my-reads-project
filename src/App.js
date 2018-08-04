@@ -26,17 +26,44 @@ class BooksApp extends React.Component {
   }
 
   changeBookShelfHandler = (book, shelf) => {
-    BooksAPI.update(book, shelf).then(res => {
-      if (!res) {
-        alert('Não foi possível atualizar livro.')
-        return false;
-      }
+    //First change on state
+    let oldShelf = book.shelf || null
 
-      this.searchAllBooks()
+    this.updateBookShelfState(book, shelf)
+
+    //Second update shelf on API
+    BooksAPI.update(book, shelf).catch((e) => {
+      alert('Não foi possível atualizar livro.')
+      this.updateBookShelfState(book, oldShelf)
     })
   }
 
-  searchAllBooks = () => BooksAPI.getAll().then((bookData) => this.setState({ bookData }))
+  updateBookShelfState = (book, shelf) => {
+    let bookDataUpdate = this.state.bookData.map(b => {
+      if (b.id === book.id && b.title === book.title) {
+        //Update shelf
+        return {
+          ...book,
+          shelf
+        }
+      }
+
+      return b
+    })
+
+    //Remove 'none' shelfs
+    bookDataUpdate = bookDataUpdate.filter(b => (b.shelf.toLowerCase() || null) !== 'none')
+
+    this.setState({ bookData: bookDataUpdate })
+  }
+
+  searchAllBooks = () => {
+    BooksAPI.getAll().then((bookData) => this.setState({ bookData }))
+    .catch(e => {
+      alert('Não foi possível buscar livros.')
+      this.setState({ bookData: [] })
+    })
+  }
 
   render() {
     const listBookShelf = ['Currently Reading', 'Want to Read', 'Read', 'All']
