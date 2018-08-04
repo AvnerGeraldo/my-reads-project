@@ -1,36 +1,54 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import { debounce, throttle } from 'throttle-debounce'
 
 //Components
 import Shelf from '../Shelf/Shelf'
 
 class SearchPage extends Component {
 
-    state = {
-        searchText: '',
-        bookDataSearch: []
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            searchText: '',
+            bookDataSearch: []
+        }
+
+        this.searchBooksWithDebounce = debounce(500, this.searchInApi)
+        this.searchBooksWithThrottle = throttle(500, this.searchInApi)
     }
 
-    searchHandler = (e) => {
-        e.preventDefault()
+    searchQueryHandler = (e) => {
+        const searchText = e.target.value;
 
-        this.setState({ 
-            searchText: e.target.value
+        this.setState({ searchText }, () => {
+            if (searchText.length < 5 || searchText.endsWith(' ')) {
+                this.searchBooksWithThrottle(searchText)
+            } else {
+                this.searchBooksWithDebounce(searchText)
+            }
         })
-        
-        //Buscar na API
-        if (e.target.value.length > 0) {
-            this.props.searchBookOnApi(e.target.value).then(data => {
-                if (data === undefined || data.error !== undefined) {
-                    this.setState({ bookDataSearch: [] })
-                    return false
-                }
+    }
 
-                //Atualizar estante nos livros
-                this.updateBooksSearched(data)
-            })
+    searchInApi = (searchQuery) => {        
+        //Buscar na API
+        if (searchQuery.length === 0) {
+            this.setState({ bookDataSearch: [] })
+            return false
         }
+
+        this.props.searchBookOnApi(searchQuery)
+        .then(data => {
+            if (data === undefined || data.error !== undefined) {
+                this.setState({ bookDataSearch: [] })
+                return false
+            }
+
+            //Atualizar estante nos livros
+            this.updateBooksSearched(data)
+        })
     }
 
     addShelfToBook = (book, shelf) => {
@@ -84,7 +102,11 @@ class SearchPage extends Component {
                 <div className="search-books-bar">
                     <Link to="/" className="close-search">Close</Link>
                         <div className="search-books-input-wrapper">
-                            <input type="text" onChange={this.searchHandler} value={this.state.searchText} placeholder="Search by title or author"/>
+                            <input 
+                                type="text" 
+                                onChange={this.searchQueryHandler} 
+                                value={this.state.searchText} 
+                                placeholder="Search by title or author"/>
                         </div>
                 </div>
                 <div className="search-books-results">
