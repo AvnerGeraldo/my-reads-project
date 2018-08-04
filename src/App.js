@@ -26,27 +26,40 @@ class BooksApp extends React.Component {
     this.updateBookShelfState(book, shelf)
 
     //Second update shelf on API
-    BooksAPI.update(book, shelf).catch((e) => {
+    BooksAPI.update(book, shelf)
+    .then(res => console.log(res))
+    .catch((e) => {
       alert('Não foi possível atualizar livro.')
       this.updateBookShelfState(book, oldShelf)
     })
   }
 
   updateBookShelfState = (book, shelf) => {
-    let bookDataUpdate = this.state.bookData.map(b => {
-      if (b.id === book.id && b.title === book.title) {
-        //Update shelf
-        return {
-          ...book,
-          shelf
+    let bookDataUpdate = this.state.bookData
+    //Verify if book exists
+    let bookFounded = this.state.bookData.find(b => b.id === book.id && b.title === book.title)
+
+    if (bookFounded === undefined) {
+      bookDataUpdate.push({
+        ...book,
+        shelf
+      })
+    } else {
+      bookDataUpdate = bookDataUpdate.map(b => {
+        if (b.id === book.id && b.title === book.title) {
+          //Update shelf
+          return {
+            ...book,
+            shelf
+          }
         }
-      }
 
-      return b
-    })
+        return b
+      })
 
-    //Remove 'none' shelfs
-    bookDataUpdate = bookDataUpdate.filter(b => (b.shelf.toLowerCase() || null) !== 'none')
+      //Remove 'none' shelfs
+      bookDataUpdate = bookDataUpdate.filter(b => (b.shelf.toLowerCase() || null) !== 'none')
+    }
 
     this.setState({ bookData: bookDataUpdate })
   }
