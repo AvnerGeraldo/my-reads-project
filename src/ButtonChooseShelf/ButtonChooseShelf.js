@@ -25,8 +25,12 @@ const ButtonChooseShelf = ({ bookshelf, active, changeShelf }) => {
         icon: faAtlas
     }]
 
-    const shelfObj = (objBookShelt.filter((item) => item.title === bookshelf))[0]
+    const shelfObj = (objBookShelt.find((item) => item.title === bookshelf))
     
+    if (shelfObj === undefined) {
+        return null
+    }
+
     return (
         <Link
             to='/'
