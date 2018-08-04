@@ -39,16 +39,10 @@ class SearchPage extends Component {
             return false
         }
 
+        //Atualizar estante nos livros
         this.props.searchBookOnApi(searchQuery)
-        .then(data => {
-            if (data === undefined || data.error !== undefined) {
-                this.setState({ bookDataSearch: [] })
-                return false
-            }
-
-            //Atualizar estante nos livros
-            this.updateBooksSearched(data)
-        })
+        .then(data => this.updateBooksSearched(data))
+        .catch(_ => this.setState({ bookDataSearch: [] }))
     }
 
     addShelfToBook = (book, shelf) => {
@@ -77,10 +71,10 @@ class SearchPage extends Component {
             let bookFounded = this.searchBookOnShelf(book)
 
             //Atualizar a estante em que o livro está caso ele já exista
-            if (bookFounded.length > 0) {
+            if (bookFounded !== undefined) {
                 return {
                     ...book,
-                    shelf: bookFounded[0].shelf
+                    shelf: bookFounded.shelf
                 }
             }
             
@@ -93,7 +87,7 @@ class SearchPage extends Component {
 
     searchBookOnShelf = book => {
         //Percorrer livros na estante
-        return this.props.bookDataOnShelf.filter(bookShelf => bookShelf.id === book.id && bookShelf.title === book.title)
+        return this.props.bookDataOnShelf.find(bookShelf => bookShelf.id === book.id && bookShelf.title === book.title)
     }
 
     render() {        
