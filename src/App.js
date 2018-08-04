@@ -12,16 +12,11 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 class BooksApp extends React.Component {
   state = {
-    bookData: [],
-    shelfActive: 'All'
+    bookData: []    
   }
 
   componentDidMount() {
     this.searchAllBooks()
-  }
-
-  changeShelfHandler = (shelf) => {
-    this.setState({ shelfActive: shelf })
   }
 
   changeBookShelfHandler = (book, shelf) => {
@@ -58,10 +53,7 @@ class BooksApp extends React.Component {
 
   searchAllBooks = () => {
     BooksAPI.getAll().then((bookData) => this.setState({ bookData }))
-    .catch(e => {
-      alert('Não foi possível buscar livros.')
-      this.setState({ bookData: [] })
-    })
+    .catch( _ => this.setState({ bookData: [] }))
   }
 
   render() {
@@ -73,9 +65,7 @@ class BooksApp extends React.Component {
           render={() => (
             <HomePage
               bookData={this.state.bookData}
-              changeShelfHandler={this.changeShelfHandler}
-              changeBookShelfHandler={this.changeBookShelfHandler}
-              shelfActive={this.state.shelfActive} />
+              changeBookShelfHandler={this.changeBookShelfHandler} />
           )} />
           <Route
             path = '/search'
