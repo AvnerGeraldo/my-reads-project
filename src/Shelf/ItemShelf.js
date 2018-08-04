@@ -6,10 +6,10 @@ import './ItemShelf.css'
 
 const ItemShelf = ({ bookData, changeBookShelf }) => {
     //Vars
-    const bookTitle = bookData.title !== undefined ? bookData.title : ''
+    const bookTitle = bookData.title || ''
     const backgroundImage = bookData.imageLinks !== undefined && bookData.imageLinks.thumbnail !== undefined ? `url(${bookData.imageLinks.thumbnail}}` : null
-    const valueSelected = (bookData.shelf === null || bookData.shelf === undefined ? 'none' : bookData.shelf)
-    const listAuthors = bookData.authors !== undefined ? bookData.authors : []
+    const valueSelected = bookData.shelf || 'none'
+    const listAuthors = bookData.authors || []
 
     //Style
     const styleBookCover = {
