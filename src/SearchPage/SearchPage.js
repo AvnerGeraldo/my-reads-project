@@ -8,7 +8,6 @@ import Shelf from '../Shelf/Shelf'
 class SearchPage extends Component {
 
     state = {
-        ...this.state,
         searchText: '',
         bookDataSearch: []
     }
@@ -17,35 +16,66 @@ class SearchPage extends Component {
         e.preventDefault()
 
         this.setState({ 
-            searchText: e.target.value,
-            bookDataSearch: []
+            searchText: e.target.value
         })
-
-        //Search on API
+        
+        //Buscar na API
         if (e.target.value.length > 0) {
-            this.props.searchBookOnApi(e.target.value).then(data => {            
-                //Verificar se existe erro ao buscar dados
-                if (data !== undefined && data.error === undefined) {
-                    //Remover livros que já existem na estante
-                    const removeDuplicate = data.filter(book => {
-                        let foundBook = this.props.bookDataOnShelf.filter(bookOnShelf => bookOnShelf.title === book.title)
-
-                        if (foundBook.length === 0) return book
-
-                        return null
-                    })
-
-                    this.setState({ bookDataSearch: removeDuplicate })
+            this.props.searchBookOnApi(e.target.value).then(data => {
+                if (data === undefined || data.error !== undefined) {
+                    this.setState({ bookDataSearch: [] })
+                    return false
                 }
+
+                //Atualizar estante nos livros
+                this.updateBooksSearched(data)
             })
         }
     }
 
     addShelfToBook = (book, shelf) => {
-        const newBookDataSearch = this.state.bookDataSearch.filter(b => b.title !== book.title)
-
-        this.setState({ bookDataSearch: newBookDataSearch })
         this.props.changeBookShelfHandler(book, shelf)
+
+        //Atualizar do livro na busca
+        const booksShelfUpdate = this.state.bookDataSearch.map(b => {
+            if (book.id === b.id && book.title === b.title) {
+                return {
+                    ...book,
+                    shelf
+                }
+            }
+
+            return b;
+        })
+
+        //Atualizar busca
+        this.setState({ bookDataSearch: booksShelfUpdate })
+    }
+
+    updateBooksSearched = (dataSearched) => {
+        //Percorrer livros retornados da busca
+        const booksShelfUpdate = dataSearched.map(book => {
+            //Verificar se o livro já existe na estante
+            let bookFounded = this.searchBookOnShelf(book)
+
+            //Atualizar a estante em que o livro está caso ele já exista
+            if (bookFounded.length > 0) {
+                return {
+                    ...book,
+                    shelf: bookFounded[0].shelf
+                }
+            }
+            
+            return book;
+        })
+
+        //Atualizar busca
+        this.setState({ bookDataSearch: booksShelfUpdate })
+    }
+
+    searchBookOnShelf = book => {
+        //Percorrer livros na estante
+        return this.props.bookDataOnShelf.filter(bookShelf => bookShelf.id === book.id && bookShelf.title === book.title)
     }
 
     render() {        
