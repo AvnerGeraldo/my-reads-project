@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom'
 import ButtonChooseShelf from '../ButtonChooseShelf/ButtonChooseShelf'
 import Shelf from '../Shelf/Shelf'
 
-class HomePage extends Component {
+class HomePage extends PureComponent {
 
-    state ={
+    state = {
         shelfActive: 'All'  
     }
 
@@ -17,7 +17,7 @@ class HomePage extends Component {
     }
 
     render() {
-        const listBookShelf = ['Currently Reading', 'Want to Read', 'Read', 'All']
+        const shelfCategoryList = ['Currently Reading', 'Want to Read', 'Read', 'All']
         const { bookData, changeBookShelfHandler } = this.props
 
         return (
@@ -30,7 +30,7 @@ class HomePage extends Component {
                 <div className="row choose-bookshelf">
                     <div className="col-10 offset-1">
                         <div className="row">
-                            {listBookShelf.map(shelf => (
+                            {shelfCategoryList.map(shelf => (
                                 <div key={shelf} className="col-3">
                                     <ButtonChooseShelf 
                                         bookshelf={shelf}
