@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
 import * as BooksAPI from './API/BooksAPI'
 
@@ -10,34 +10,39 @@ import SearchPage from './SearchPage/SearchPage'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-class BooksApp extends React.Component {
+class BooksApp extends Component {
   state = {
     bookData: []    
   }
 
-  componentDidMount() {
-    this.searchAllBooks()
+  async componentDidMount() {
+    try {
+      const bookData = await BooksAPI.getAll()
+      this.setState({ bookData })
+    } catch (error) {
+      this.setState({ bookData: [] })
+    }
   }
 
   changeBookShelfHandler = (book, shelf) => {
     //First change on state
     let oldShelf = book.shelf || null
 
-    this.updateBookShelfState(book, shelf)
+    try {
+      this.updateBookShelfState(book, shelf)
 
-    //Second update shelf on API
-    BooksAPI.update(book, shelf)
-    .then(res => console.log(res))
-    .catch((e) => {
-      alert('Não foi possível atualizar livro.')
-      this.updateBookShelfState(book, oldShelf)
-    })
+      //Second update shelf on API
+      BooksAPI.update(book, shelf)
+    } catch(error) {
+        alert('Não foi possível atualizar livro.')
+        this.updateBookShelfState(book, oldShelf)
+    }
   }
 
   updateBookShelfState = (book, shelf) => {
     let bookDataUpdate = this.state.bookData
     //Verify if book exists
-    let bookFounded = this.state.bookData.find(b => b.id === book.id && b.title === book.title)
+    const bookFounded = bookDataUpdate.find(b => b.id === book.id && b.title === book.title)
 
     if (bookFounded === undefined) {
       bookDataUpdate.push({
@@ -55,18 +60,10 @@ class BooksApp extends React.Component {
         }
 
         return b
-      })
-
-      //Remove 'none' shelfs
-      bookDataUpdate = bookDataUpdate.filter(b => (b.shelf.toLowerCase() || null) !== 'none')
+      }).filter(b => (b.shelf.toLowerCase() || null) !== 'none') //Remove 'none' shelfs
     }
 
     this.setState({ bookData: bookDataUpdate })
-  }
-
-  searchAllBooks = () => {
-    BooksAPI.getAll().then((bookData) => this.setState({ bookData }))
-    .catch( _ => this.setState({ bookData: [] }))
   }
 
   render() {
