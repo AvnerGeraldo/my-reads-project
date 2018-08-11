@@ -6,7 +6,7 @@ import App from '../src/App'
 
 //Tests
 describe('<App />', _ => {
-    it('should render', _ => {
+    xit('should render', _ => {
         const wrapper = shallow(<App />)
         expect(wrapper)
     })
