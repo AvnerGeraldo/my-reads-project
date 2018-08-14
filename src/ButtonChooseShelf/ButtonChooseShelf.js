@@ -39,7 +39,7 @@ const ButtonChooseShelf = ({ bookshelf, active, changeShelf }) => {
             <FontAwesomeIcon 
                 icon={shelfObj.icon} 
                 className="mx-auto d-block" />
-            <div className=''>{shelfObj.title}</div>
+            <div className='title-shelf'>{shelfObj.title}</div>
         </Link>
     )
 }
