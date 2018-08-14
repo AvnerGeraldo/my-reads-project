@@ -15,7 +15,7 @@ describe('[Component] ButtonChooseShelfUi', () => {
         }     
 
         const wrapper = shallow(<ButtonChooseShelf {...props}/>)
-        expect(wrapper).toMatchSnapshot();
+        expect(wrapper).toMatchSnapshot()
     })
 
     it('render a fontAwesome into button on time', () => {

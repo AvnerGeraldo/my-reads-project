@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[Component] ItemShelf render item book correctly 1`] = `
+<div
+  className="book"
+>
+  <div
+    className="book-top"
+  >
+    <div
+      className="book-cover"
+      style={
+        Object {
+          "backgroundImage": "url(image-link}",
+          "height": 193,
+          "width": 128,
+        }
+      }
+    />
+    <div
+      className="book-shelf-changer"
+    >
+      <select
+        onChange={[Function]}
+        value="wantToRead"
+      >
+        <option
+          disabled={true}
+          value="move"
+        >
+          Move to...
+        </option>
+        <option
+          value="currentlyReading"
+        >
+          Currently Reading
+        </option>
+        <option
+          value="wantToRead"
+        >
+          Want to Read
+        </option>
+        <option
+          value="read"
+        >
+          Read
+        </option>
+        <option
+          value="none"
+        >
+          None
+        </option>
+      </select>
+    </div>
+  </div>
+  <div
+    className="book-title"
+  >
+    book title
+  </div>
+  <div
+    className="book-authors"
+  >
+    author1 , author2
+  </div>
+</div>
+`;
