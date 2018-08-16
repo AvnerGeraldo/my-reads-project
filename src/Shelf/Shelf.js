@@ -37,7 +37,7 @@ const Shelf = ({ data, chooseShelf, changeBookShelf }) => {
     }
     
     return (
-        <div className="row" style={styleRow}>
+        <div className="row shelf-content" style={styleRow}>
             {(listShelfData.length === 0) ? 
             (<div className="no-results">Não há dados para serem exibidos!</div>) :
                 listShelfData.map((item, index) => (
