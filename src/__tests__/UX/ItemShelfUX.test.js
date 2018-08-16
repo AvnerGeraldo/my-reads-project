@@ -16,7 +16,7 @@ const props = {
     changeBookShelf: jest.fn()
 }
 
-describe('[Component ItemShelf]', () => {
+describe('[Component] UX ItemShelf', () => {
     //UX
     it('calls \'changeBookShelf\' when change value on select', () => {
         const wrapper = shallow(<ItemShelf {...props} />)

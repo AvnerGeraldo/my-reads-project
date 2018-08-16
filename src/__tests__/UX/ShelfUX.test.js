@@ -35,7 +35,7 @@ const props = {
     changeBookShelf: jest.fn()
 }
 
-describe('[Component] Shelf', () => {
+describe('[Component] UX Shelf', () => {
     it('maps itemShelf if data passed to Shelf is not empty', () => {
         const wrapper = mount(<Shelf {...props}/>)
         

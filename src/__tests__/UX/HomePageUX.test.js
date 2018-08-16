@@ -6,10 +6,6 @@ import ReactRouterEnzymeContext from 'react-router-enzyme-context'
 import HomePage from '../../HomePage/HomePage'
 import { text } from '../../../node_modules/@fortawesome/fontawesome-svg-core';
 
-///UX
-//maps throught the shelf categories
-//update the actived shelf
-//state starts with \'shelfActive = All\'
 const props = {
     bookData: [
         {
@@ -42,7 +38,7 @@ const props = {
 const shelfCategoryList = ['Currently Reading', 'Want to Read', 'Read', 'All']
 const options = new ReactRouterEnzymeContext();
 
-describe('[Component] HomePage', () => {
+describe('[Component] UX HomePage', () => {
   it('maps throught the shelf categories', () => {
       const wrapper = shallow(<HomePage {...props} />)
 
@@ -68,9 +64,3 @@ describe('[Component] HomePage', () => {
       expect(wrapper.state().shelfActive).toBe('All')
   })
 })
-
-///UI
-//render correctly
-//render the button choose shelf for every category of a shelf
-//verified if page link \'Add Book\' exists on HomePage
-//render shelf correctly

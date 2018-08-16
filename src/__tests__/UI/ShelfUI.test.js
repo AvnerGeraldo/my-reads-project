@@ -35,7 +35,7 @@ const props = {
     changeBookShelf: jest.fn()
 }
 
-describe('[Component] Shelf', () => {
+describe('[Component] UI Shelf', () => {
     it('render correctly a Shelf', () => {
         const wrapper = shallow(<Shelf {...props}/>)
         
