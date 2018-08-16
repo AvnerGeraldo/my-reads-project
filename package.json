@@ -12,6 +12,7 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-router-dom": "^4.3.1",
+    "react-router-enzyme-context": "^1.2.0",
     "react-scripts": "^1.1.4",
     "throttle-debounce": "^2.0.1"
   },
