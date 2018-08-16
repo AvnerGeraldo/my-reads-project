@@ -4,7 +4,6 @@ import ReactRouterEnzymeContext from 'react-router-enzyme-context'
 
 //Component
 import HomePage from '../../HomePage/HomePage'
-import { text } from '../../../node_modules/@fortawesome/fontawesome-svg-core';
 
 const props = {
     bookData: [

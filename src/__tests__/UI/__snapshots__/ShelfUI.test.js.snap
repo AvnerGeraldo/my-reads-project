@@ -1,70 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`[Component] Shelf render correctly a Shelf 1`] = `
-<div
-  className="row"
-  style={
-    Object {
-      "margin": "0 auto",
-      "maxWidth": "800px",
-      "minWidth": "675px",
-      "padding": "0px 10px",
-    }
-  }
->
-  <ItemShelf
-    bookData={
-      Object {
-        "authors": Array [
-          "author1",
-          "author2",
-        ],
-        "imageLinks": Object {
-          "thumbnail": "image-link 1",
-        },
-        "shelf": "wantToRead",
-        "title": "book title 1",
-      }
-    }
-    changeBookShelf={[Function]}
-    key="0"
-  />
-  <ItemShelf
-    bookData={
-      Object {
-        "authors": Array [
-          "author1",
-        ],
-        "imageLinks": Object {
-          "thumbnail": "image-link 2",
-        },
-        "shelf": "read",
-        "title": "book title 2",
-      }
-    }
-    changeBookShelf={[Function]}
-    key="1"
-  />
-  <ItemShelf
-    bookData={
-      Object {
-        "authors": Array [],
-        "imageLinks": Object {
-          "thumbnail": "image-link 3",
-        },
-        "shelf": "wantToRead",
-        "title": "book title 3",
-      }
-    }
-    changeBookShelf={[Function]}
-    key="2"
-  />
-</div>
-`;
-
 exports[`[Component] UI Shelf render correctly a Shelf 1`] = `
 <div
-  className="row"
+  className="row shelf-content"
   style={
     Object {
       "margin": "0 auto",
